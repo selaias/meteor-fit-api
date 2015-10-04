@@ -38,7 +38,7 @@ const Runkeeper = FitAPI.runkeeper;
 
 var options = {
   config: { 
-    access_token: "XXXXXXXXXXX
+    access_token: "XXXXXXXXXXX"
   }
 };
 
