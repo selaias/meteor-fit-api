@@ -11,20 +11,20 @@ var both = ['client', 'server'];
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.2');
   
-  api.use('ecmascript', both);
+  api.use('ecmascript', 'server');
   api.use('http', ['server']);
   api.use('underscore', 'server');
-  api.use('check', both);
-  api.use('random', both);
+  api.use('check', 'server');
+  api.use('random', 'server');  
+  api.imply('service-configuration', 'server');
   
+  api.addFiles('server/_modules.js', 'server');
+ 
   
-  api.use('service-configuration', both);
-  
-  api.addFiles('both/fit-api.js');
-  
-  api.addFiles('client/runkeeper/config.js');
-  api.addFiles('client/runkeeper/setup.js');
-  api.addFiles('client/runkeeper/methods.js');
+  api.addFiles('server/fit-api.js', 'server');
+  api.addFiles('server/methods.js', 'server');
+  api.addFiles('server/runkeeper/config.js', 'server');
+  api.addFiles('server/runkeeper/api.js', 'server');
   
   api.export('FitAPI', both);
 });

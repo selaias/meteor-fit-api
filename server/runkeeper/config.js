@@ -4,7 +4,7 @@ let _defaults = {
     access_token : "< access token >",
 
     // API Domain (Optional, default will work for most apps):
-    api_domain : "api.runkeeper.com",
+    api_domain : "https://api.runkeeper.com",
   },
   endPoints: {
     "user": {
@@ -31,7 +31,7 @@ let _defaults = {
 };
 
 let getDefaults = ( type ) => {
-  return _defaults[ type ];
+  return _defaults[ type ] || {};
 };
 
 let init = ( options ) => {
@@ -39,11 +39,21 @@ let init = ( options ) => {
 
   options = options != undefined ? options : {};
   
-  FitAPI.runkeeper.config = _.extend(getDefaults('config'), options.config || {} );
-  FitAPI.runkeeper.endPoints = _.extend(getDefaults('endPoints'), options.endPoints || {});
+  _defaults.config = _.extend(getDefaults('config'), options.config || {} );
+  _defaults.endPoints = _.extend(getDefaults('endPoints'), options.endPoints || {});
+};
+
+let getEndPoint = ( type ) => {
+  return _defaults.endPoints[ type ] || {};
 };
 
 
-FitAPI.runkeeper.config = getDefaults('config');
-FitAPI.runkeeper.endPoints = getDefaults('endPoints');
-FitAPI.runkeeper.init = init;
+/*
+*  Exports
+*/
+FitAPI.runkeeper = {
+  getConfig: getDefaults('config'),
+  getEndPoints: getDefaults('endPoints'),
+  getEndPoint: getEndPoint,
+  init:  init
+};

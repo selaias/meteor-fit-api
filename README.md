@@ -31,8 +31,9 @@ meteor add selaias:accounts-underarmour
 ## Usage
 
 In order to be able to use the API, you should initialize a fitness service by passing (at least) 
-the ``access_token`` (via the authentication APIs)
+the ``access_token`` (via the authentication APIs) 
 
+``server/main.js``
 ````js
 const Runkeeper = FitAPI.runkeeper;
 
@@ -76,6 +77,28 @@ var endPoints = {
 ````
 
 but you can extend those end points and pass it as options in the init function.
+
+You can now start using all API methods and extra endPoings you have set.
+
+``client/runkeeper_user.js``
+````js
+
+var options = {
+    service: "runkeeper",   // One Of ('runkeeper', 'strava', 'mapmyfitness', 'fitbit', 'underarmour')
+    method: "GET",         // One Of ('GET', 'POST', 'PUT', 'DELETE')
+    endPoint: "user"    
+  }
+
+
+  Meteor.call('FitAPIRequest', options, function(err, result){
+    if(err) {
+      console.log(err)
+    } else {
+      console.log(result)
+    }
+  });
+
+````
 
 ## Wish List
 
