@@ -185,7 +185,7 @@ Simple user request [https://runkeeper.com/developer/healthgraph/example-api-cal
 ````js
 
 var options = {
-    service: "runkeeper",  // One Of ('runkeeper', 'strava', 'mapmyfitness', 'fitbit', 'underarmour')
+    service: "runkeeper",  // currently One Of ('runkeeper', 'strava') more to follow
     method: "GET",         // One Of ('GET', 'POST', 'PUT', 'DELETE')
     endPoint: "user"       // One of endpoints set on init
   }
@@ -206,13 +206,13 @@ or a request to update an Activity type
 ````js
 
 var options = {
-    service: "runkeeper",   // One Of ('runkeeper', 'strava', 'mapmyfitness', 'fitbit', 'underarmour')
-    method: "PUT",         // One Of ('GET', 'POST', 'PUT', 'DELETE')
+    service: "runkeeper",           // currently One Of ('runkeeper', 'strava') more to follow
+    method: "PUT",                 // One Of ('GET', 'POST', 'PUT', 'DELETE')
     endPoint: "fitnessActivities", // One of endpoints set on init
-    params: {
-      id: 'yourActivityId',
+    params: {                      
+      id: 'yourActivityId',        // Optional for GET / POST, required for PUT / DELETE
       data: {
-        type: 'Running'
+        type: 'Running'           // request_body data based on endpoint editable fields.
       }
     }
   }
