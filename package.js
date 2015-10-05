@@ -11,11 +11,10 @@ var both = ['client', 'server'];
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.2');
   
-  api.use('ecmascript', 'server');
+  api.use('ecmascript@0.1.4', 'server');
   api.use('http', ['server']);
   api.use('underscore', 'server');
   api.use('check', 'server');
-  api.use('random', 'server');  
   api.imply('service-configuration', 'server');
   
   api.addFiles('server/_modules.js', 'server');
