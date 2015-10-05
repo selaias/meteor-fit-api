@@ -1,7 +1,7 @@
 Package.describe({
   name: 'selaias:fit-api',
   version: '0.1.0',
-  summary: 'Brining Fitness APIs together ',
+  summary: 'Fitness API support for Runkeeper, Strava, MapMyFitness, UnderArmour, Fitbit.',
   git: 'https://github.com/selaias/meteor-fit-api.git',
   documentation: 'README.md'
 });
