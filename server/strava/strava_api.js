@@ -3,12 +3,12 @@ var pat = {
     id: Match.Optional(String),
   },
   PUT: {
-    id: Match.Optional(String),
-    data: Match.Optional(Object)
+    id: String,
+    data: Object
   },
   POST: {
     id: Match.Optional(String),
-    data: Match.Optional(Object)
+    data: Object
   },
   DELETE: {
     id: Match.Optional(String),
@@ -18,13 +18,12 @@ var pat = {
 var methods = {
   GET: function( context ) {
     check( context.params, pat.GET);
-    this._context = context;
-    console.log(' - GET - ');
+    //     console.log(' - GET - ');
 
-    var endPoint = FitAPI.strava.getEndPoint( context.endPoint );
     var config = FitAPI.strava.getConfig;
+    var endPoint = FitAPI.strava.getEndPoint( context.endPoint );
 
-    var uri = config.api_domain + endPoint.uri;
+    var uri = config.api_domain + config.api_version + endPoint.uri;
 
     if (context.params.id) {
       uri += '/' + context.params.id;
@@ -42,13 +41,12 @@ var methods = {
   },
   POST: function( context ) {
     check( context.params, pat.POST);
-    this._context = context;
-    console.log(' - POST - ');
+//     console.log(' - POST - ');
 
+    var config = FitAPI.strava.getConfig;
     var endPoint = FitAPI.strava.getEndPoint( context.endPoint );
-    var config = FitAPI.strava.getConfig();
 
-    var uri = config.api_domain + endPoint.uri;
+    var uri = config.api_domain + config.api_version + '/' + endPoint.uri;
 
     if (context.params) {
       uri += '/' + context.params.id;
@@ -60,19 +58,19 @@ var methods = {
         'Authorization' : 'Bearer ' + config.access_token
       },
       uri: uri,
-      data: context.data
+      data: context.params.data
     };
 
     return request_headers;
   },
   PUT: function( context ) {
     check( context.params, pat.PUT);
-    this._context = context;
-    console.log(' - PUT - ');   
+//     console.log(' - PUT - ');   
+    
+    var config = FitAPI.strava.getConfig;
     var endPoint = FitAPI.strava.getEndPoint( context.endPoint );
-    var config = FitAPI.strava.getConfig();
 
-    var uri = config.api_domain + endPoint.uri;
+    var uri = config.api_domain + config.api_version + endPoint.uri;
 
     if (context.params) {
       uri += '/' + context.params.id;
@@ -84,25 +82,24 @@ var methods = {
         'Authorization' : 'Bearer ' + config.access_token
       },
       uri: uri,
-      data: context.data
+      data: context.params.data
     };
 
     return request_headers;
   },
   DELETE: function( context ) {
     check( context.params, pat.DELETE);
-    this._context = context;
-    console.log(' - DELETE - ');
+//     console.log(' - DELETE - ');
 
+    var config = FitAPI.strava.getConfig;
     var endPoint = FitAPI.strava.getEndPoint( context.endPoint );
-    var config = FitAPI.strava.getConfig();
 
     var request_headers = {
       method: context.method,
       headers: {
         'Authorization' : 'Bearer ' + config.access_token
       },
-      uri: config.api_domain + endPoint.uri + '/' + context.params.id,
+      uri: config.api_domain + endPoint.uri + config.api_version + '/' + context.params.id,
     };
 
     return request_headers;

@@ -3,12 +3,12 @@ var pat = {
     id: Match.Optional(String),
   },
   PUT: {
-    id: Match.Optional(String),
-    data: Match.Optional(Object)
+    id: String,
+    data: Object
   },
   POST: {
     id: Match.Optional(String),
-    data: Match.Optional(Object)
+    data: Object
   },
   DELETE: {
     id: Match.Optional(String),
@@ -18,11 +18,11 @@ var pat = {
 var methods = {
   GET: function( context ) {
     check( context.params, pat.GET);
-    this._context = context;
-    console.log(' - GET - ');
+//     console.log(' - GET - ');
+
+    var config = FitAPI.runkeeper.getConfig;
 
     var endPoint = FitAPI.runkeeper.getEndPoint( context.endPoint );
-    var config = FitAPI.runkeeper.getConfig;
 
     var uri = config.api_domain + endPoint.uri;
 
@@ -30,7 +30,7 @@ var methods = {
       uri += '/' + context.params.id;
     }
 
-    var request_headers = {
+    var request_arguments = {
       method: context.method,
       headers: {
         'Accept': endPoint.content_type,
@@ -39,15 +39,15 @@ var methods = {
       uri: uri
     };
 
-    return request_headers;
+    return request_arguments;
   },
   POST: function( context ) {
     check( context.params, pat.POST);
-    this._context = context;
-    console.log(' - POST - ');
+//     console.log(' - POST - ');
+
+    var config = FitAPI.runkeeper.getConfig;
 
     var endPoint = FitAPI.runkeeper.getEndPoint( context.endPoint );
-    var config = FitAPI.runkeeper.getConfig();
 
     var uri = config.api_domain + endPoint.uri;
 
@@ -55,52 +55,50 @@ var methods = {
       uri += '/' + context.params.id;
     }
 
-    var request_headers = {
+    check( context.params.data, endPoint.pat);
+
+    var request_arguments = {
       method: context.method,
       headers: {
-        'Accept': endPoint.content_type,
+        'Content-Type': endPoint.content_type,
         'Authorization' : 'Bearer ' + config.access_token
       },
       uri: uri,
-      data: context.data
+      data: context.params.data
     };
 
-    return request_headers;
+    return request_arguments;
   },
   PUT: function( context ) {
     check( context.params, pat.PUT);
-    this._context = context;
-    console.log(' - PUT - ');   
+//     console.log(' - PUT - ');   
+
+    var config = FitAPI.runkeeper.getConfig;
     var endPoint = FitAPI.runkeeper.getEndPoint( context.endPoint );
-    var config = FitAPI.runkeeper.getConfig();
 
-    var uri = config.api_domain + endPoint.uri;
+    check( context.params.data, endPoint.pat);
+    
+    var uri = config.api_domain + endPoint.uri +'/' + context.params.id;
 
-    if (context.params) {
-      uri += '/' + context.params.id;
-    }
-
-    var request_headers = {
+    var request_arguments = {
       method: context.method,
       headers: {
-        'Accept': endPoint.content_type,
+        'Content-Type': endPoint.content_type,
         'Authorization' : 'Bearer ' + config.access_token
       },
       uri: uri,
-      data: context.data
+      data: context.params.data
     };
 
-    return request_headers;
+    return request_arguments;
   },
   DELETE: function( context ) {
     check( context.params, pat.DELETE);
-    this._context = context;
-    console.log(' - DELETE - ');
+//     console.log(' - DELETE - ');
 
-    var endPoint = FitAPI.runkeeper.getEndPoint( context.endPoint );
-    var config = FitAPI.runkeeper.getConfig();
+    var config = FitAPI.runkeeper.getConfig;
 
-    var request_headers = {
+    var request_arguments = {
       method: context.method,
       headers: {
         'Accept': endPoint.content_type,
@@ -109,7 +107,7 @@ var methods = {
       uri: config.api_domain + endPoint.uri + '/' + context.params.id,
     };
 
-    return request_headers;
+    return request_arguments;
   }
 };
 

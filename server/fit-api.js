@@ -9,7 +9,7 @@ var pat = {
   params: Match.Optional(Object)
 };
 
-let getAPIHeaders = ( options ) => {
+let getAPIArguments = ( options ) => {
   var context = {
     method: options.method,
     endPoint: options.endPoint,
@@ -18,21 +18,28 @@ let getAPIHeaders = ( options ) => {
   return FitAPI[options.service]['api']['methods'][options.method](context);
 }
 
-let handleRequest = ( options ) => {
+let handleRequest = ( options, callback ) => {
   check( options, Object);
   check( options, pat);
 
-  var request_headers = getAPIHeaders( options );
-  console.log('------- HEADERS --------');
-  console.log(request_headers);
-  console.log('------- // --------');
-
-//   HTTP.call(request_headers.method, request_headers.uri, {headers: request_headers.headers}, function (error, result) {
-//     if (!error) {
-//       console.log(result)
-//     }
-//   });
-
+  try {
+    var request_arguments = getAPIArguments( options );
+    
+//     console.log('------- DEBUG HEADERS --------');
+//     console.log(request_arguments);
+//     console.log('-------      //      --------');
+    
+    var requestResult = HTTP.call(
+      request_arguments.method, 
+      request_arguments.uri, {
+        headers: request_arguments.headers, 
+        data: request_arguments.data
+      }
+    );
+    return requestResult.content;
+  } catch ( e ) {
+    throw new Meteor.Error( e.error, e.message );
+  }
 };
 
 FitAPI.common.request = handleRequest;

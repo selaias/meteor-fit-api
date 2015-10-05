@@ -4,7 +4,6 @@ Meteor.methods({
     try {
       return FitAPI.common.request( options );
     } catch ( e ) {
-      console.log(e)
       throw new Meteor.Error( e.error, e.reason );
     }
   },
