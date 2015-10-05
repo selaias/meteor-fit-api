@@ -1,6 +1,6 @@
 Package.describe({
   name: 'selaias:fit-api',
-  version: '0.0.1',
+  version: '0.1.0',
   summary: 'Brining Fitness APIs together ',
   git: 'https://github.com/selaias/meteor-fit-api.git',
   documentation: 'README.md'
@@ -23,8 +23,12 @@ Package.onUse(function(api) {
   
   api.addFiles('server/fit-api.js', 'server');
   api.addFiles('server/methods.js', 'server');
-  api.addFiles('server/runkeeper/config.js', 'server');
-  api.addFiles('server/runkeeper/api.js', 'server');
+  
+  api.addFiles('server/runkeeper/runkeeper_config.js', 'server');
+  api.addFiles('server/runkeeper/runkeeper_api.js', 'server');
+  
+  api.addFiles('server/strava/strava_config.js', 'server');
+  api.addFiles('server/strava/strava_api.js', 'server');
   
   api.export('FitAPI', both);
 });

@@ -1,3 +1,5 @@
+/* globals FitAPI */
+
 FitAPI = {};
 FitAPI.common = {};
 FitAPI.runkeeper = {};

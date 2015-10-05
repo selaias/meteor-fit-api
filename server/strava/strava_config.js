@@ -2,30 +2,30 @@ let _defaults = {
   config: {
     // Access Token (Optional, defaults to null):
     access_token : "< access token >",
+    
+    athleteId: "< strave athlete id>",
 
     // API Domain (Optional, default will work for most apps):
-    api_domain : "https://api.runkeeper.com",
+    api_domain : "https://api.strava.com",
+    
+    // API version
+    api_version : "/v3"
   },
   endPoints: {
-    "user": {
-      "content_type": "application/vnd.com.runkeeper.User+json",
-      "uri": "/user"
+    "athlete": {
+      "uri": "/athletes"
     },
-    "profile": {
-      "content_type": "application/vnd.com.runkeeper.Profile+json",
-      "uri": "/profile"
+    "activities": {
+      "uri": "/activities"
     },
-    "settings": {
-      "content_type": "application/vnd.com.runkeeper.Settings+json",
-      "uri": "/settings"
+    "clubs": {
+      "uri": "/clubs"
     },
-    "fitnessActivityFeed": {
-      "content_type": "application/vnd.com.runkeeper.FitnessActivityFeed+json",
-      "uri": "/fitnessActivities"
+    "segments": {
+      "uri": "/segments"
     },
-    "fitnessActivities": {
-      "content_type": "application/vnd.com.runkeeper.FitnessActivity+json",
-      "uri": "/fitnessActivities"
+    "uploads": {
+      "uri": "/uploads"
     },
   }
 };
@@ -51,7 +51,7 @@ let getEndPoint = ( type ) => {
 /*
 *  Exports
 */
-FitAPI.runkeeper = {
+FitAPI.strava = {
   getConfig: getDefaults('config'),
   getEndPoints: getDefaults('endPoints'),
   getEndPoint: getEndPoint,
